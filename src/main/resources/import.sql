@@ -1,8 +1,9 @@
 insert into client (firstname, lastname) values ('Kamil','Zaremba');
-
 insert into client (firstname, lastname) values ('Piotr','Migda');
-
 insert into client (firstname, lastname) values ('Admin','Admin');
+
+
+
 
 insert into product (img_url, nazwa, cena) values ('https://www.pngall.com/wp-content/uploads/2016/04/Carrot-PNG.png','marchew 250g', 0.50);
 insert into product (img_url, nazwa, cena) values ('https://freshgarden.olkusz.pl/wp-content/uploads/2019/06/jajko-wolny-wybieg-ma%C5%82e.png','jajka 1 szt',0.80);

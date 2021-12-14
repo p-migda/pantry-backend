@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -34,12 +34,12 @@ public class User {
     @Column(name = "uprawnienia")
     private Integer permission;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "worker_id",referencedColumnName = "id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "worker_id",referencedColumnName = "id", nullable = true)
     private Worker worker;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id",referencedColumnName = "id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id",referencedColumnName = "id", nullable = true)
     private Client client;
 
 }

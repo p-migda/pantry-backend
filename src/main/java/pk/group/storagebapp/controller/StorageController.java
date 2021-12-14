@@ -12,6 +12,7 @@ import pk.group.storagebapp.service.StorageService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class StorageController {
 
     @Autowired

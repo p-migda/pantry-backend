@@ -1,9 +1,9 @@
 package pk.group.storagebapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "client")
@@ -12,6 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +24,9 @@ public class Client {
     @Column(name = "lastname")
     private String lastname;
 
+    @Column(name = "phoneNumber")
+    private String phoneNumber;
+
+    @Column(name = "isRegular")
+    private Boolean isRegular;
 }

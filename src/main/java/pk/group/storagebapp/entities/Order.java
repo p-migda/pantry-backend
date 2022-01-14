@@ -3,6 +3,7 @@ package pk.group.storagebapp.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,7 +20,7 @@ public class Order {
     private Long id;
 
     @Column(name = "zamowienie")
-    private String status;
+    private String statusOrder;
 
     @Column(name = "data_zamowienia", columnDefinition = "TIMESTAMP")
     private LocalDateTime ordertime;
@@ -28,7 +29,9 @@ public class Order {
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "payment", referencedColumnName = "id")
-    private Payment payment;
+    @Column(name = "kwota")
+    private BigDecimal value;
+
+    @Column(name = "płatność")
+    private String statusPayment;
 }

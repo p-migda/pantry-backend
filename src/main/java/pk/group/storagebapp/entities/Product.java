@@ -1,5 +1,6 @@
 package pk.group.storagebapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Product {
 
     @Id
@@ -26,4 +28,13 @@ public class Product {
 
     @Column(name = "imgUrl")
     private String imgUrl;
+
+    @Column(name = "ocena")
+    private Double score;
+
+    @Column(name = "ilosc_ocen")
+    private Integer scoreNumber;
+
+    @Column(name = "ilosc")
+    private Integer quantity;
 }

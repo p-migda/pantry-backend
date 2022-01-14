@@ -7,13 +7,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RegisterModel {
-    private String login;
-    private String name;
-    private String lastname;
-    private String email;
+public class EditModel {
     private String password;
+    private String email;
     private Integer permission;
     private String phoneNumber;
-    private String position;
+    private Boolean isRegular;
 }

@@ -28,8 +28,9 @@ public class User {
 
     /*
     0 - admin
-    1 - pracownik
-    2 - uzytkownik
+    1 - menedżer
+    2 - pracownik
+    3 - klient
      */
     @Column(name = "uprawnienia")
     private Integer permission;

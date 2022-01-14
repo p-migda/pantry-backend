@@ -1,10 +1,7 @@
 package pk.group.storagebapp.controller;
 
 import org.springframework.web.bind.annotation.*;
-import pk.group.storagebapp.entities.Client;
-import pk.group.storagebapp.entities.Order;
-import pk.group.storagebapp.entities.Product;
-import pk.group.storagebapp.entities.User;
+import pk.group.storagebapp.entities.*;
 import pk.group.storagebapp.model.*;
 import pk.group.storagebapp.service.StorageService;
 
@@ -56,6 +53,16 @@ public class StorageController {
         return service.getStatistics();
     }
 
+    @GetMapping("/pantry/{clientId}")
+    public List<PantryItem> getPantryByClient(@PathVariable Long clientId){
+        return service.getPantryByClient(clientId);
+    }
+
+
+    @PostMapping("/pantry/add")
+    public ClientProduct addPantryItem(@RequestBody ClientProductModel clientProductModel){
+        return service.addPantryItem(clientProductModel);
+    }
 
     @PostMapping("/user/edit/{userId}")
     public User editUser(@PathVariable long userId,

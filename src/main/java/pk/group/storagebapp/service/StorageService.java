@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pk.group.storagebapp.entities.*;
+import pk.group.storagebapp.keys.ClientProductKey;
 import pk.group.storagebapp.model.*;
 import pk.group.storagebapp.repo.*;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,14 +29,16 @@ public class StorageService {
     private final OrderRepo orderRepo;
     private final ProductOrderRepo productOrderRepo;
     private final WorkerRepo workerRepo;
+    private final ClientProductRepo clientProductRepo;
 
-    public StorageService(ClientRepo clientRepo, ProductRepo productRepo, UserRepo userRepo, OrderRepo orderRepo, ProductOrderRepo productOrderRepo, WorkerRepo workerRepo) {
+    public StorageService(ClientRepo clientRepo, ProductRepo productRepo, UserRepo userRepo, OrderRepo orderRepo, ProductOrderRepo productOrderRepo, WorkerRepo workerRepo, ClientProductRepo clientProductRepo) {
         this.clientRepo = clientRepo;
         this.productRepo = productRepo;
         this.userRepo = userRepo;
         this.orderRepo = orderRepo;
         this.productOrderRepo = productOrderRepo;
         this.workerRepo = workerRepo;
+        this.clientProductRepo = clientProductRepo;
     }
 
     public List<OrderListModel> getOrderHistory(long clientId) {
@@ -124,6 +128,39 @@ public class StorageService {
 
     }
 
+    public List<PantryItem> getPantryByClient(Long clientId) {
+        return clientProductRepo.findAllByClientId(clientId).stream()
+                .map(clientProduct ->
+                        PantryItem.builder()
+                                .product(clientProduct.getProduct())
+                                .quantity(clientProduct.getQuantity())
+                                .build()
+                ).collect(Collectors.toList());
+    }
+
+
+    @Transactional
+    public ClientProduct addPantryItem(ClientProductModel clientProductModel) {
+
+        Optional<ClientProduct> optional = clientProductRepo.findById(ClientProductKey.builder()
+                .client(clientProductModel.getClientId())
+                .product(clientProductModel.getProductId())
+                .build());
+
+        Integer add = 0;
+
+        if (optional.isPresent()){
+            add = optional.get().getQuantity();
+        }
+
+        ClientProduct clientProduct = ClientProduct.builder()
+                .client(clientRepo.getById(clientProductModel.getClientId()))
+                .product(productRepo.getById(clientProductModel.getProductId()))
+                .quantity(clientProductModel.getQuantity() + add)
+                .build();
+
+        return clientProductRepo.save(clientProduct);
+    }
 
     @Transactional
     public Product addProduct(ProductRegisterModel productRegisterModel) {

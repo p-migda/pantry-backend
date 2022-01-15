@@ -90,53 +90,55 @@ public class StorageService {
                 .filter(order -> !order.getOrder().getStatusOrder().equals("cancelled"))
                 .collect(Collectors.toList());
 
-        List<ProductListModel> productListModel = new ArrayList<>();
+        List<ProductModel> productModel = new ArrayList<>();
 
         ordersList.forEach(order -> {
             order.getProductList().forEach(o -> {
 
-                ProductListModel model = ProductListModel.builder()
+                ProductModel model = ProductModel.builder()
                         .product(o.getProduct())
                         .quantity(o.getQuantity())
                         .build();
 
-                if (productListModel.contains(model)) {
-                    ProductListModel model1 = productListModel.get(productListModel.indexOf(model));
+                if (productModel.contains(model)) {
+                    ProductModel model1 = productModel.get(productModel.indexOf(model));
                     model1.setQuantity(model.getQuantity() + model1.getQuantity());
-                    productListModel.set(productListModel.indexOf(model), model1);
+                    productModel.set(productModel.indexOf(model), model1);
                 } else {
-                    productListModel.add(model);
+                    productModel.add(model);
                 }
             });
         });
 
-        Integer top = productListModel.stream().map(ProductListModel::getQuantity).max(Integer::compareTo).get();
+        Integer top = productModel.stream().map(ProductModel::getQuantity).max(Integer::compareTo).get();
 
-        List<Product> productList = productListModel.stream()
-                .filter(productListModel1 -> productListModel1.getQuantity() == top)
-                .map(ProductListModel::getProduct)
+        List<Product> productList = productModel.stream()
+                .filter(productModel1 -> productModel1.getQuantity() == top)
+                .map(ProductModel::getProduct)
                 .collect(Collectors.toList());
 
         long cancelled = ordersList.stream().filter(order -> "cancelled".equals(order.getOrder().getStatusOrder())).count();
 
         return StatisticsModel.builder()
                 .topProduct(productList)
-                .productListModel(productListModel)
+                .productModel(productModel)
                 .quantityOrder(ordersList.size())
                 .quantityCancelledOrder((int) cancelled)
                 .build();
 
     }
 
-    public List<PantryItem> getPantryByClient(Long clientId) {
+    public List<ProductModel> getPantryByClient(Long clientId) {
         return clientProductRepo.findAllByClientId(clientId).stream()
                 .map(clientProduct ->
-                        PantryItem.builder()
+                        ProductModel.builder()
                                 .product(clientProduct.getProduct())
                                 .quantity(clientProduct.getQuantity())
                                 .build()
                 ).collect(Collectors.toList());
     }
+
+
 
 
     @Transactional
@@ -366,7 +368,7 @@ public class StorageService {
     }
 
 
-    public void deleteProduct(long productId) {
+    public void deleteProduct(Long productId) {
         Product product = productRepo.getById(productId);
         productRepo.delete(product);
     }
@@ -374,5 +376,12 @@ public class StorageService {
     public void deleteUser(Long userId) {
         User user = userRepo.getById(userId);
         userRepo.delete(user);
+    }
+
+    public void deletePantryItem(Long clientId, Long productId){
+        clientProductRepo.delete(clientProductRepo.findById(ClientProductKey.builder()
+                .client(clientId)
+                .product(productId)
+                .build()).get());
     }
 }

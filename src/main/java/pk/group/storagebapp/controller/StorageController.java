@@ -54,7 +54,7 @@ public class StorageController {
     }
 
     @GetMapping("/pantry/{clientId}")
-    public List<PantryItem> getPantryByClient(@PathVariable Long clientId){
+    public List<ProductModel> getPantryByClient(@PathVariable Long clientId){
         return service.getPantryByClient(clientId);
     }
 
@@ -62,6 +62,11 @@ public class StorageController {
     @PostMapping("/pantry/add")
     public ClientProduct addPantryItem(@RequestBody ClientProductModel clientProductModel){
         return service.addPantryItem(clientProductModel);
+    }
+
+    @PostMapping("/pantry/edit")
+    public ClientProduct editPantryItem(){
+return null;
     }
 
     @PostMapping("/user/edit/{userId}")
@@ -112,12 +117,18 @@ public class StorageController {
 
 
     @DeleteMapping("/user/delete")
-    public void deleteUser(@RequestParam long userId) {
+    public void deleteUser(@RequestParam Long userId) {
         service.deleteUser(userId);
     }
 
     @DeleteMapping("/product/delete")
-    public void deleteProduct(@RequestParam long productId) {
+    public void deleteProduct(@RequestParam Long productId) {
         service.deleteProduct(productId);
+    }
+
+    @DeleteMapping("/pantry/delete")
+    public void deletePantryItem(@RequestParam Long clientId,
+                                 @RequestParam Long productId){
+        service.deletePantryItem(clientId, productId);
     }
 }

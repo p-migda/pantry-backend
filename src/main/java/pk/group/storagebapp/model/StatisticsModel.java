@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 public class StatisticsModel {
     private List<Product> topProduct;
-    private List<ProductListModel> productListModel;
+    private List<ProductModel> productModel;
     private Integer quantityOrder;
     private Integer quantityCancelledOrder;
 }

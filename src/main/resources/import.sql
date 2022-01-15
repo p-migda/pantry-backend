@@ -51,3 +51,6 @@ insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('ht
 
 create or replace function upd_pos_func() returns trigger as $BODY$ begin if new.uprawnienia<>old.uprawnienia then if new.uprawnienia=2 then update worker set stanowisko='Pracownik' where id=old.id; end if; if new.uprawnienia=1 then update worker set stanowisko='Menedżer' where id=old.id; end if; end if; return new; end; $BODY$ language plpgsql;
 create trigger upd_trg after update or insert on users for each row execute procedure upd_pos_func();
+
+create or replace function del_pit_func() returns trigger as $BODY$ begin delete from client_product where ilosc = 0; return new; end; $BODY$ language plpgsql;
+create trigger del_trg after update or insert on client_product for each row execute procedure del_pit_func();

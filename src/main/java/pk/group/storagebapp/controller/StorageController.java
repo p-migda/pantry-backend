@@ -64,11 +64,6 @@ public class StorageController {
         return service.addPantryItem(clientProductModel);
     }
 
-    @PostMapping("/pantry/edit")
-    public ClientProduct editPantryItem(){
-return null;
-    }
-
     @PostMapping("/user/edit/{userId}")
     public User editUser(@PathVariable long userId,
                          @RequestBody EditModel editModel) {

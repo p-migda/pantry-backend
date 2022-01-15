@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import pk.group.storagebapp.entities.User;
 import pk.group.storagebapp.model.ClientProductModel;
 import pk.group.storagebapp.model.RegisterModel;
+import pk.group.storagebapp.model.RegisterShoppingListModel;
 import pk.group.storagebapp.service.StorageService;
 
 import java.util.HashMap;
@@ -111,5 +112,20 @@ public class DbInit {
         service.addPantryItem(model1);
         service.addPantryItem(model2);
         service.addPantryItem(model3);
+
+        RegisterShoppingListModel slm1 = RegisterShoppingListModel.builder()
+                .clientId(1L)
+                .nameList("Moja lista")
+                .productModelList(new HashMap<String, Integer>() {{
+                    put("1", 1);
+                    put("7", 2);
+                    put("42", 3);
+                    put("31", 2);
+                    put("15", 9);
+                    put("24", 4);
+                }})
+                .build();
+
+        service.registerShoppingListModel(slm1);
     }
 }

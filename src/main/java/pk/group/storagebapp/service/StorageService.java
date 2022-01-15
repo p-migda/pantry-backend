@@ -30,8 +30,10 @@ public class StorageService {
     private final ProductOrderRepo productOrderRepo;
     private final WorkerRepo workerRepo;
     private final ClientProductRepo clientProductRepo;
+    private final ShoppingListRepo shoppingListRepo;
+    private final ProductShoppingListRepo productShoppingListRepo;
 
-    public StorageService(ClientRepo clientRepo, ProductRepo productRepo, UserRepo userRepo, OrderRepo orderRepo, ProductOrderRepo productOrderRepo, WorkerRepo workerRepo, ClientProductRepo clientProductRepo) {
+    public StorageService(ClientRepo clientRepo, ProductRepo productRepo, UserRepo userRepo, OrderRepo orderRepo, ProductOrderRepo productOrderRepo, WorkerRepo workerRepo, ClientProductRepo clientProductRepo, ShoppingListRepo shoppingListRepo, ProductShoppingListRepo productShoppingListRepo) {
         this.clientRepo = clientRepo;
         this.productRepo = productRepo;
         this.userRepo = userRepo;
@@ -39,6 +41,8 @@ public class StorageService {
         this.productOrderRepo = productOrderRepo;
         this.workerRepo = workerRepo;
         this.clientProductRepo = clientProductRepo;
+        this.shoppingListRepo = shoppingListRepo;
+        this.productShoppingListRepo = productShoppingListRepo;
     }
 
     public List<OrderListModel> getOrderHistory(long clientId) {
@@ -69,12 +73,12 @@ public class StorageService {
                 .build();
     }
 
-    public List<Client> getClients() {
-        return clientRepo.findAll();
-    }
-
     public List<Product> getProducts() {
         return productRepo.findAll();
+    }
+
+    public List<Client> getClients() {
+        return clientRepo.findAll();
     }
 
     public Product getProduct(Long productId) {
@@ -138,8 +142,53 @@ public class StorageService {
                 ).collect(Collectors.toList());
     }
 
+    public List<ShoppingListModel> getShopppingListByClient(Long clientId) {
+        List<ShoppingList> all = shoppingListRepo.findAllByClientId(clientId);
+
+        return all.stream()
+                .map(shoppingList -> {
+                    List<ProductShoppingList> list = productShoppingListRepo.findAllByShoppingList(shoppingList);
+                    return ShoppingListModel.builder()
+                            .shoppingList(shoppingList)
+                            .productModelList(list.stream()
+                                    .map(productShoppingList -> ProductModel.builder()
+                                            .product(productShoppingList.getProduct())
+                                            .quantity(productShoppingList.getQuantity())
+                                            .build())
+                                    .collect(Collectors.toList()))
+                            .build();
+                }).collect(Collectors.toList());
+    }
 
 
+    @Transactional
+    public ShoppingListModel registerShoppingListModel(RegisterShoppingListModel model) {
+        ShoppingList shoppingList = ShoppingList.builder()
+                .nameList(model.getNameList())
+                .status("private")
+                .client(clientRepo.getById(model.getClientId()))
+                .build();
+        shoppingListRepo.save(shoppingList);
+        List<ProductShoppingList> list = new ArrayList<>();
+
+        model.getProductModelList().keySet().forEach(s -> {
+            list.add(ProductShoppingList.builder()
+                    .shoppingList(shoppingList)
+                    .product(productRepo.getById(Long.valueOf(s)))
+                    .quantity(model.getProductModelList().get(s))
+                    .build());
+        });
+
+        productShoppingListRepo.saveAll(list);
+
+        return ShoppingListModel.builder()
+                .shoppingList(shoppingList)
+                .productModelList(list.stream().map(productShoppingList -> ProductModel.builder()
+                        .product(productShoppingList.getProduct())
+                        .quantity(productShoppingList.getQuantity())
+                        .build()).collect(Collectors.toList()))
+                .build();
+    }
 
     @Transactional
     public ClientProduct addPantryItem(ClientProductModel clientProductModel) {
@@ -151,7 +200,7 @@ public class StorageService {
 
         Integer add = 0;
 
-        if (optional.isPresent()){
+        if (optional.isPresent()) {
             add = optional.get().getQuantity();
         }
 
@@ -368,6 +417,15 @@ public class StorageService {
     }
 
 
+    public void deleteShopppingList(Long shoppingListId){
+        ShoppingList shoppingList = shoppingListRepo.findById(shoppingListId).get();
+
+        List<ProductShoppingList> all = productShoppingListRepo.findAllByShoppingList(shoppingList);
+
+        productShoppingListRepo.deleteAll(all);
+        shoppingListRepo.delete(shoppingList);
+    }
+
     public void deleteProduct(Long productId) {
         Product product = productRepo.getById(productId);
         productRepo.delete(product);
@@ -378,7 +436,7 @@ public class StorageService {
         userRepo.delete(user);
     }
 
-    public void deletePantryItem(Long clientId, Long productId){
+    public void deletePantryItem(Long clientId, Long productId) {
         clientProductRepo.delete(clientProductRepo.findById(ClientProductKey.builder()
                 .client(clientId)
                 .product(productId)

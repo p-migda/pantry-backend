@@ -39,7 +39,7 @@ public class StorageController {
     }
 
     @GetMapping("/orders/history/{clientId}")
-    public List<OrderListModel> getOrdersHistoryByClient(@PathVariable long clientId) {
+    public List<OrderListModel> getOrdersHistoryByClient(@PathVariable Long clientId) {
         return service.getOrderHistory(clientId);
     }
 
@@ -58,6 +58,16 @@ public class StorageController {
         return service.getPantryByClient(clientId);
     }
 
+    @GetMapping("/shoppinglist/{clientId}")
+    public List<ShoppingListModel> getShoppingListByClient(@PathVariable Long clientId){
+        return service.getShopppingListByClient(clientId);
+    }
+
+
+    @PostMapping("/shoppinglist/add")
+    public ShoppingListModel registerShoppingList(@RequestBody RegisterShoppingListModel model){
+        return service.registerShoppingListModel(model);
+    }
 
     @PostMapping("/pantry/add")
     public ClientProduct addPantryItem(@RequestBody ClientProductModel clientProductModel){
@@ -65,7 +75,7 @@ public class StorageController {
     }
 
     @PostMapping("/user/edit/{userId}")
-    public User editUser(@PathVariable long userId,
+    public User editUser(@PathVariable Long userId,
                          @RequestBody EditModel editModel) {
         return service.editUser(userId, editModel);
     }
@@ -126,4 +136,10 @@ public class StorageController {
                                  @RequestParam Long productId){
         service.deletePantryItem(clientId, productId);
     }
+
+    @DeleteMapping("/shoppinglist/delete")
+    public void delete(@RequestParam Long shoppinglistId){
+        service.deleteShopppingList(shoppinglistId);
+    }
+
 }

@@ -6,7 +6,7 @@ import pk.group.storagebapp.keys.ProductShoppingListKey;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "shoppingListItem")
+@Table(name = "productShoppingList")
 @Getter
 @Setter
 @AllArgsConstructor

@@ -127,5 +127,21 @@ public class DbInit {
                 .build();
 
         service.registerShoppingListModel(slm1);
+
+        RegisterShoppingListModel recipe1 = RegisterShoppingListModel.builder()
+                .nameList("Naleśniki z kurczakiem i brokułami ")
+                .productModelList(new HashMap<String, Integer>() {{
+                    put("51", 1);
+                    put("52", 1);
+                    put("53", 1);
+                    put("30", 1);
+                    put("23", 1);
+                    put("34", 1);
+                    put("2", 1);
+                    put("12", 1);
+                    put("44", 1);
+                }})
+                .build();
+        service.registerShoppingListModel(recipe1);
     }
 }

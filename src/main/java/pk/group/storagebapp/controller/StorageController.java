@@ -63,6 +63,11 @@ public class StorageController {
         return service.getShopppingListByClient(clientId);
     }
 
+    @GetMapping("/shoppinglist")
+    public List<ShoppingListModel> getShopppingListPre(){
+        return service.getShopppingListPre();
+    }
+
 
     @PostMapping("/shoppinglist/add")
     public ShoppingListModel registerShoppingList(@RequestBody RegisterShoppingListModel model){

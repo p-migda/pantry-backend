@@ -160,13 +160,31 @@ public class StorageService {
                 }).collect(Collectors.toList());
     }
 
+    public List<ShoppingListModel> getShopppingListPre() {
+        List<ShoppingList> all = shoppingListRepo.findAllByClient(null);
+
+        return all.stream()
+                .map(shoppingList -> {
+                    List<ProductShoppingList> list = productShoppingListRepo.findAllByShoppingList(shoppingList);
+                    return ShoppingListModel.builder()
+                            .shoppingList(shoppingList)
+                            .productModelList(list.stream()
+                                    .map(productShoppingList -> ProductModel.builder()
+                                            .product(productShoppingList.getProduct())
+                                            .quantity(productShoppingList.getQuantity())
+                                            .build())
+                                    .collect(Collectors.toList()))
+                            .build();
+                }).collect(Collectors.toList());
+    }
+
 
     @Transactional
     public ShoppingListModel registerShoppingListModel(RegisterShoppingListModel model) {
         ShoppingList shoppingList = ShoppingList.builder()
                 .nameList(model.getNameList())
                 .status("private")
-                .client(clientRepo.getById(model.getClientId()))
+                .client(model.getClientId() != null ? clientRepo.getById(model.getClientId()) : null)
                 .build();
         shoppingListRepo.save(shoppingList);
         List<ProductShoppingList> list = new ArrayList<>();
@@ -417,7 +435,7 @@ public class StorageService {
     }
 
 
-    public void deleteShopppingList(Long shoppingListId){
+    public void deleteShopppingList(Long shoppingListId) {
         ShoppingList shoppingList = shoppingListRepo.findById(shoppingListId).get();
 
         List<ProductShoppingList> all = productShoppingListRepo.findAllByShoppingList(shoppingList);

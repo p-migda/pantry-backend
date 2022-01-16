@@ -114,7 +114,7 @@ public class DbInit {
         service.addPantryItem(model3);
 
         RegisterShoppingListModel recipe1 = RegisterShoppingListModel.builder()
-                .nameList("Naleśniki z kurczakiem i brokułami ")
+                .nameList("Naleśniki z kurczakiem i brokułami")
                 .productModelList(new HashMap<String, Integer>() {{
                     put("51", 1);
                     put("52", 1);
@@ -127,7 +127,20 @@ public class DbInit {
                     put("44", 1);
                 }})
                 .build();
+        RegisterShoppingListModel recipe2 = RegisterShoppingListModel.builder()
+                .nameList("Rosół z kury")
+                .productModelList(new HashMap<String, Integer>() {{
+                    put("26", 1);
+                    put("57", 1);
+                    put("1", 2);
+                    put("23", 1);
+                    put("54", 1);
+                    put("55", 1);
+                    put("56", 1);
+                }})
+                .build();
         service.registerShoppingListModel(recipe1);
+        service.registerShoppingListModel(recipe2);
 
         RegisterShoppingListModel slm1 = RegisterShoppingListModel.builder()
                 .clientId(1L)

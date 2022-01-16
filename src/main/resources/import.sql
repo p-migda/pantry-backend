@@ -51,6 +51,10 @@ insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('ht
 insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://leclercdrive.lublin.pl/149906-thickbox_default/filet-z-piersi-kurczaka-luz.jpg','Filet z kurczaka 300g',8.99,3.5,185,243);
 insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://paulinka.sklepkupiec.pl/17871-large_default/brokuly.jpg','Brokuł 1szt',5.69,2.1,185,123);
 insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://warzywneinspiracje.pl/wp-content/uploads/2020/12/pieczarki_opt2.jpg','Pieczarki 200g',6.69,3.4,345,345);
+insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://www.eko-farma.net/wp-content/uploads/2021/01/pietruszka.jpg','Pietruszka 1szt',3.00,3.9,854,241);
+insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://naszeden.pl/userdata/public/gfx/031d3e9e73d827998fbc7f4742d9a893.jpg','Seler 1szt',2.49,3.1,741,321);
+insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://gilko.pl/userdata/public/gfx/1200/por.png','Por 1szt',3.00,4.3,526,231);
+insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://bi.im-g.pl/im/0d/ab/13/z20625677V,Nowe-opakowania-Barilla.jpg','Makaron ',6.00,4.3,526,421);
 
 create or replace function upd_pos_func() returns trigger as $BODY$ begin if new.uprawnienia<>old.uprawnienia then if new.uprawnienia=2 then update worker set stanowisko='Pracownik' where id=old.id; end if; if new.uprawnienia=1 then update worker set stanowisko='Menedżer' where id=old.id; end if; end if; return new; end; $BODY$ language plpgsql;
 create trigger upd_trg after update or insert on users for each row execute procedure upd_pos_func();

@@ -113,21 +113,6 @@ public class DbInit {
         service.addPantryItem(model2);
         service.addPantryItem(model3);
 
-        RegisterShoppingListModel slm1 = RegisterShoppingListModel.builder()
-                .clientId(1L)
-                .nameList("Moja lista")
-                .productModelList(new HashMap<String, Integer>() {{
-                    put("1", 1);
-                    put("7", 2);
-                    put("42", 3);
-                    put("31", 2);
-                    put("15", 9);
-                    put("24", 4);
-                }})
-                .build();
-
-        service.registerShoppingListModel(slm1);
-
         RegisterShoppingListModel recipe1 = RegisterShoppingListModel.builder()
                 .nameList("Naleśniki z kurczakiem i brokułami ")
                 .productModelList(new HashMap<String, Integer>() {{
@@ -143,5 +128,22 @@ public class DbInit {
                 }})
                 .build();
         service.registerShoppingListModel(recipe1);
+
+        RegisterShoppingListModel slm1 = RegisterShoppingListModel.builder()
+                .clientId(1L)
+                .nameList("Moja lista")
+                .productModelList(new HashMap<String, Integer>() {{
+                    put("1", 1);
+                    put("7", 2);
+                    put("42", 3);
+                    put("31", 2);
+                    put("15", 9);
+                    put("24", 4);
+                }})
+                .build();
+
+        service.registerShoppingListModel(slm1);
+
+
     }
 }

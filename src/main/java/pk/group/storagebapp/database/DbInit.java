@@ -139,8 +139,22 @@ public class DbInit {
                     put("56", 1);
                 }})
                 .build();
+        RegisterShoppingListModel recipe3 = RegisterShoppingListModel.builder()
+                .nameList("Ziemniaczana zapiekanka z kurczakiem")
+                .productModelList(new HashMap<String, Integer>() {{
+                    put("51", 1);
+                    put("10", 1);
+                    put("30", 1);
+                    put("8", 1);
+                    put("44", 1);
+                    put("23", 1);
+                    put("54", 1);
+                }})
+                .build();
+
         service.registerShoppingListModel(recipe1);
         service.registerShoppingListModel(recipe2);
+        service.registerShoppingListModel(recipe3);
 
         RegisterShoppingListModel slm1 = RegisterShoppingListModel.builder()
                 .clientId(1L)

@@ -166,6 +166,7 @@ public class DbInit {
         service.registerShoppingListModel(recipe1);
         service.registerShoppingListModel(recipe2);
         service.registerShoppingListModel(recipe3);
+        service.registerShoppingListModel(recipe4);
 
         RegisterShoppingListModel slm1 = RegisterShoppingListModel.builder()
                 .clientId(1L)

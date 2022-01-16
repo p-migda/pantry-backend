@@ -151,6 +151,17 @@ public class DbInit {
                     put("54", 1);
                 }})
                 .build();
+        RegisterShoppingListModel recipe4 = RegisterShoppingListModel.builder()
+                .nameList("Bogracz tradycyjny")
+                .productModelList(new HashMap<String, Integer>() {{
+                    put("27", 1);
+                    put("58", 3);
+                    put("59", 1);
+                    put("60", 1);
+                    put("61", 4);
+                    put("62", 3);
+                }})
+                .build();
 
         service.registerShoppingListModel(recipe1);
         service.registerShoppingListModel(recipe2);

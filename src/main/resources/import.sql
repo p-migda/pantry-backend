@@ -54,7 +54,12 @@ insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('ht
 insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://www.eko-farma.net/wp-content/uploads/2021/01/pietruszka.jpg','Pietruszka 1szt',3.00,3.9,854,241);
 insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://naszeden.pl/userdata/public/gfx/031d3e9e73d827998fbc7f4742d9a893.jpg','Seler 1szt',2.49,3.1,741,321);
 insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://gilko.pl/userdata/public/gfx/1200/por.png','Por 1szt',3.00,4.3,526,231);
-insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://bi.im-g.pl/im/0d/ab/13/z20625677V,Nowe-opakowania-Barilla.jpg','Makaron ',6.00,4.3,526,421);
+insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://bi.im-g.pl/im/0d/ab/13/z20625677V,Nowe-opakowania-Barilla.jpg','Makaron',6.00,4.3,526,421);
+insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://organic24.pl/media/products/877a302b5517eed73a31b2b686e2d903/images/thumbnail/small_cebula-czerwona.jpg?lm=1640766128','Cebula czerwona',1.50,4.3,526,215);
+insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://bemuke.pl/pol_pl_PAPRYKA-CZERWONA-BIO-NA-WAGE-9822_1.jpg','Papryka czerwona',2.34,4.3,584,138);
+insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://res.cloudinary.com/dj484tw6k/f_auto,q_auto,fl_progressive,c_pad,b_white,w_320,h_320/dpr_2/v1499864252/be/3448.jpg','Papryka żółta',2.34,4.3,584,138);
+insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://media.castorama.pl/media/catalog/product/c/z/czosnek.jpg','Czosnek 1szt',1.20,4.1,489,352);
+insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://zakupy.lewiatan.pl/debica-krakowska/562-thickbox_default/smalec-ze-skwarkami-200-g-lewiatan.jpg','Smalec 1szt',2.43,4.3,846,241);
 
 create or replace function upd_pos_func() returns trigger as $BODY$ begin if new.uprawnienia<>old.uprawnienia then if new.uprawnienia=2 then update worker set stanowisko='Pracownik' where id=old.id; end if; if new.uprawnienia=1 then update worker set stanowisko='Menedżer' where id=old.id; end if; end if; return new; end; $BODY$ language plpgsql;
 create trigger upd_trg after update or insert on users for each row execute procedure upd_pos_func();

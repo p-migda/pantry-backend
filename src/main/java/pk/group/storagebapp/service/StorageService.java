@@ -178,6 +178,27 @@ public class StorageService {
                 }).collect(Collectors.toList());
     }
 
+    public List<ShoppingListModel> getShoppingListPublic() {
+        List<ShoppingList> all = shoppingListRepo.findAll()
+                .stream()
+                .filter(shoppingList -> shoppingList.getStatus().equals("public"))
+                .collect(Collectors.toList());
+
+        return all.stream()
+                .map(shoppingList -> {
+                    List<ProductShoppingList> list = productShoppingListRepo.findAllByShoppingList(shoppingList);
+                    return ShoppingListModel.builder()
+                            .shoppingList(shoppingList)
+                            .productModelList(list.stream()
+                                    .map(productShoppingList -> ProductModel.builder()
+                                            .product(productShoppingList.getProduct())
+                                            .quantity(productShoppingList.getQuantity())
+                                            .build())
+                                    .collect(Collectors.toList()))
+                            .build();
+                }).collect(Collectors.toList());
+    }
+
 
     @Transactional
     public ShoppingListModel registerShoppingListModel(RegisterShoppingListModel model) {
@@ -432,6 +453,14 @@ public class StorageService {
         }
 
         return productRepo.save(product);
+    }
+
+    @Transactional
+    public ShoppingList shareList(Long shoppingListId) {
+        ShoppingList list = shoppingListRepo.findById(shoppingListId).get();
+        list.setStatus("public");
+
+        return shoppingListRepo.save(list);
     }
 
 

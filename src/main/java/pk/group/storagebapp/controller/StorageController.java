@@ -68,6 +68,16 @@ public class StorageController {
         return service.getShopppingListPre();
     }
 
+    @GetMapping("/shoppinglist/public")
+    public List<ShoppingListModel> getShoppingListPublic(){
+        return service.getShoppingListPublic();
+    }
+
+
+    @PostMapping("/shoppinglist/share")
+    public ShoppingList shareShoppingList(@RequestParam Long shoppingListId){
+        return service.shareList(shoppingListId);
+    }
 
     @PostMapping("/shoppinglist/add")
     public ShoppingListModel registerShoppingList(@RequestBody RegisterShoppingListModel model){

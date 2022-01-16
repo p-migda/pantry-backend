@@ -162,11 +162,23 @@ public class DbInit {
                     put("62", 3);
                 }})
                 .build();
+        RegisterShoppingListModel recipe5 = RegisterShoppingListModel.builder()
+                .nameList("Wegetariańskie tortille")
+                .productModelList(new HashMap<String, Integer>() {{
+                    put("63", 1);
+                    put("59", 1);
+                    put("60", 1);
+                    put("58", 1);
+                    put("61", 1);
+                    put("65", 1);
+                }})
+                .build();
 
         service.registerShoppingListModel(recipe1);
         service.registerShoppingListModel(recipe2);
         service.registerShoppingListModel(recipe3);
         service.registerShoppingListModel(recipe4);
+        service.registerShoppingListModel(recipe5);
 
         RegisterShoppingListModel slm1 = RegisterShoppingListModel.builder()
                 .clientId(1L)
@@ -180,9 +192,65 @@ public class DbInit {
                     put("24", 4);
                 }})
                 .build();
+        RegisterShoppingListModel slm2 = RegisterShoppingListModel.builder()
+                .clientId(1L)
+                .nameList("Moja lista")
+                .productModelList(new HashMap<String, Integer>() {{
+                    put("1", 1);
+                    put("7", 2);
+                    put("42", 3);
+                    put("31", 2);
+                    put("15", 9);
+                    put("24", 4);
+                }})
+                .build();
+        RegisterShoppingListModel slm3 = RegisterShoppingListModel.builder()
+                .clientId(1L)
+                .nameList("Moja lista")
+                .productModelList(new HashMap<String, Integer>() {{
+                    put("1", 1);
+                    put("7", 2);
+                    put("42", 3);
+                    put("31", 2);
+                    put("15", 9);
+                    put("24", 4);
+                }})
+                .build();
+        RegisterShoppingListModel slm4 = RegisterShoppingListModel.builder()
+                .clientId(1L)
+                .nameList("Moja lista")
+                .productModelList(new HashMap<String, Integer>() {{
+                    put("1", 1);
+                    put("7", 2);
+                    put("42", 3);
+                    put("31", 2);
+                    put("15", 9);
+                    put("24", 4);
+                }})
+                .build();
+        RegisterShoppingListModel slm5 = RegisterShoppingListModel.builder()
+                .clientId(1L)
+                .nameList("Moja lista")
+                .productModelList(new HashMap<String, Integer>() {{
+                    put("1", 1);
+                    put("7", 2);
+                    put("42", 3);
+                    put("31", 2);
+                    put("15", 9);
+                    put("24", 4);
+                }})
+                .build();
 
         service.registerShoppingListModel(slm1);
+        service.registerShoppingListModel(slm2);
+        service.registerShoppingListModel(slm3);
+        service.registerShoppingListModel(slm4);
+        service.registerShoppingListModel(slm5);
 
+        service.shareList(6L);
+        service.shareList(7L);
+        service.shareList(8L);
+        service.shareList(9L);
 
     }
 }

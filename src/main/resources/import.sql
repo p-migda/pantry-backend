@@ -60,6 +60,9 @@ insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('ht
 insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://res.cloudinary.com/dj484tw6k/f_auto,q_auto,fl_progressive,c_pad,b_white,w_320,h_320/dpr_2/v1499864252/be/3448.jpg','Papryka żółta',2.34,4.3,584,138);
 insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://media.castorama.pl/media/catalog/product/c/z/czosnek.jpg','Czosnek 1szt',1.20,4.1,489,352);
 insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://zakupy.lewiatan.pl/debica-krakowska/562-thickbox_default/smalec-ze-skwarkami-200-g-lewiatan.jpg','Smalec 1szt',2.43,4.3,846,241);
+insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://www.carrefour.pl/images/product/org/benus-tortilla-placki-do-napelniania-20-cm-320-g-8-sztuk-mkpvl1.jpg','Placki tortilla',8.43,4.3,846,241);
+insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://sklep.spolemkielce.pl/wp-content/uploads/2020/05/cukinia.png','Cukinia 1kg',15.90,4.3,342,154);
+insert into product (img_url, nazwa, cena, ocena, ilosc_ocen, ilosc) values ('https://farmazdrowia24.pl/userdata/public/gfx/925/oliwa-z-oliwek-extra-virgin-1000-ml-targroch.jpg','Oliwa z oliwek 1L',34.00,4.5,342,234);
 
 create or replace function upd_pos_func() returns trigger as $BODY$ begin if new.uprawnienia<>old.uprawnienia then if new.uprawnienia=2 then update worker set stanowisko='Pracownik' where id=old.id; end if; if new.uprawnienia=1 then update worker set stanowisko='Menedżer' where id=old.id; end if; end if; return new; end; $BODY$ language plpgsql;
 create trigger upd_trg after update or insert on users for each row execute procedure upd_pos_func();

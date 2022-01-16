@@ -79,6 +79,11 @@ public class StorageController {
         return service.shareList(shoppingListId);
     }
 
+    @PostMapping("/shoppinglist/unshare")
+    public ShoppingList unshareShoppingList(@RequestParam Long shoppingListId){
+        return service.unshareList(shoppingListId);
+    }
+
     @PostMapping("/shoppinglist/add")
     public ShoppingListModel registerShoppingList(@RequestBody RegisterShoppingListModel model){
         return service.registerShoppingListModel(model);

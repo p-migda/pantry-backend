@@ -463,6 +463,14 @@ public class StorageService {
         return shoppingListRepo.save(list);
     }
 
+    @Transactional
+    public ShoppingList unshareList(Long shoppingListId) {
+        ShoppingList list = shoppingListRepo.findById(shoppingListId).get();
+        list.setStatus("private");
+
+        return shoppingListRepo.save(list);
+    }
+
 
     public void deleteShopppingList(Long shoppingListId) {
         ShoppingList shoppingList = shoppingListRepo.findById(shoppingListId).get();

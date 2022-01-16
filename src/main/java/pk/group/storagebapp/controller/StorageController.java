@@ -74,6 +74,12 @@ public class StorageController {
     }
 
 
+    @PostMapping("/shoppinglist/edit")
+    public ShoppingList editTitle(@RequestBody String nameList,
+                                  @RequestParam Long shoppingListId){
+        return service.editTitle(nameList,shoppingListId);
+    }
+
     @PostMapping("/shoppinglist/share")
     public ShoppingList shareShoppingList(@RequestParam Long shoppingListId){
         return service.shareList(shoppingListId);

@@ -201,6 +201,13 @@ public class StorageService {
 
 
     @Transactional
+    public ShoppingList editTitle(String nameList, Long shoppingListId) {
+        ShoppingList list = shoppingListRepo.findById(shoppingListId).get();
+        list.setNameList(nameList);
+        return shoppingListRepo.save(list);
+    }
+
+    @Transactional
     public ShoppingListModel registerShoppingListModel(RegisterShoppingListModel model) {
         ShoppingList shoppingList = ShoppingList.builder()
                 .nameList(model.getNameList())

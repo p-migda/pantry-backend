@@ -479,13 +479,14 @@ public class StorageService {
     }
 
 
-    public void deleteShopppingList(Long shoppingListId) {
+    public Long deleteShopppingList(Long shoppingListId) {
         ShoppingList shoppingList = shoppingListRepo.findById(shoppingListId).get();
 
         List<ProductShoppingList> all = productShoppingListRepo.findAllByShoppingList(shoppingList);
 
         productShoppingListRepo.deleteAll(all);
         shoppingListRepo.delete(shoppingList);
+        return shoppingListId;
     }
 
     public void deleteProduct(Long productId) {

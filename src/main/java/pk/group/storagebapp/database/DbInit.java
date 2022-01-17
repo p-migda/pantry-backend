@@ -182,7 +182,7 @@ public class DbInit {
 
         RegisterShoppingListModel slm1 = RegisterShoppingListModel.builder()
                 .clientId(1L)
-                .nameList("Moja lista")
+                .nameList("Przepyszna jajecznica")
                 .productModelList(new HashMap<String, Integer>() {{
                     put("1", 1);
                     put("7", 2);
@@ -194,7 +194,7 @@ public class DbInit {
                 .build();
         RegisterShoppingListModel slm2 = RegisterShoppingListModel.builder()
                 .clientId(1L)
-                .nameList("Moja lista")
+                .nameList("Na wieczorne serialowe chwile")
                 .productModelList(new HashMap<String, Integer>() {{
                     put("1", 1);
                     put("7", 2);
@@ -202,39 +202,38 @@ public class DbInit {
                     put("31", 2);
                     put("15", 9);
                     put("24", 4);
+                    put("2", 1);
+                    put("8", 2);
+                    put("41", 3);
+                    put("33", 2);
+                    put("11", 9);
+                    put("26", 4);
                 }})
                 .build();
         RegisterShoppingListModel slm3 = RegisterShoppingListModel.builder()
                 .clientId(1L)
-                .nameList("Moja lista")
+                .nameList("Lista na brak pomysłów")
                 .productModelList(new HashMap<String, Integer>() {{
                     put("1", 1);
                     put("7", 2);
-                    put("42", 3);
-                    put("31", 2);
-                    put("15", 9);
-                    put("24", 4);
                 }})
                 .build();
         RegisterShoppingListModel slm4 = RegisterShoppingListModel.builder()
                 .clientId(1L)
-                .nameList("Moja lista")
+                .nameList("Czwarta lista")
                 .productModelList(new HashMap<String, Integer>() {{
                     put("1", 1);
                     put("7", 2);
                     put("42", 3);
-                    put("31", 2);
                     put("15", 9);
                     put("24", 4);
                 }})
                 .build();
         RegisterShoppingListModel slm5 = RegisterShoppingListModel.builder()
                 .clientId(1L)
-                .nameList("Moja lista")
+                .nameList("Bez nazwy")
                 .productModelList(new HashMap<String, Integer>() {{
                     put("1", 1);
-                    put("7", 2);
-                    put("42", 3);
                     put("31", 2);
                     put("15", 9);
                     put("24", 4);

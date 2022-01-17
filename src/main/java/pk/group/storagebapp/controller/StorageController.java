@@ -146,7 +146,6 @@ public class StorageController {
         return service.editProduct(productEditModel, productId);
     }
 
-
     @DeleteMapping("/user/delete")
     public void deleteUser(@RequestParam Long userId) {
         service.deleteUser(userId);
@@ -164,8 +163,8 @@ public class StorageController {
     }
 
     @DeleteMapping("/shoppinglist/delete")
-    public void delete(@RequestParam Long shoppinglistId){
-        service.deleteShopppingList(shoppinglistId);
+    public Long delete(@RequestParam Long shoppinglistId){
+        return service.deleteShopppingList(shoppinglistId);
     }
 
 }
